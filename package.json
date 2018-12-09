@@ -1,0 +1,25 @@
+{
+  "name": "advent_of_code_2018",
+  "version": "1.0.0",
+  "description": "Solutions to advent of code 2018",
+  "main": "index.j",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fsgdez/Advent_of_Code_2018.git"
+  },
+  "author": "Fadi George",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fsgdez/Advent_of_Code_2018/issues"
+  },
+  "homepage": "https://github.com/fsgdez/Advent_of_Code_2018#readme",
+  "devDependencies": {
+    "@babel/core": "^7.2.0",
+    "@babel/node": "^7.2.0",
+    "@babel/preset-env": "^7.2.0",
+    "prettier": "^1.15.3"
+  }
+}
