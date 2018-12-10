@@ -8,10 +8,10 @@ const part1 = () => {
   const claimSet = new Set();
   const overlapSet = new Set();
   data.forEach((claim) => {
-    const claimInfo = claim.match(/^#\d+ @ (\d+),(\d+): (\d+)x(\d+)$/);
-    for (let r = 0; r < claimInfo[3]; r++) {
-      for (let c = 0; c < claimInfo[4]; c++) {
-        const posStr = `${+claimInfo[1] + r},${+claimInfo[2] + c}`;
+    const [_, colOffset, rowOffset, width, height] = claim.match(/\d+/g);
+    for (let r = 0; r < height; r++) {
+      for (let c = 0; c < width; c++) {
+        const posStr = `${+rowOffset + r},${+colOffset + c}`;
         if (claimSet.has(posStr)) {
           overlapSet.add(posStr);
         } else {
@@ -28,20 +28,19 @@ const part2 = () => {
   const matchIDs = {};
   const claimIDSet = new Set();
   data.forEach((claim) => {
-    const claimInfo = claim.match(/^#(\d+) @ (\d+),(\d+): (\d+)x(\d+)$/);
-    claimIDSet.add(claimInfo[1]);
+    const [claimID, colOffset, rowOffset, width, height] = claim.match(/\d+/g);
+    claimIDSet.add(claimID);
 
-    for (let r = 0; r < claimInfo[4]; r++) {
-      for (let c = 0; c < claimInfo[5]; c++) {
-        const posStr = `${+claimInfo[2] + r},${+claimInfo[3] + c}`;
+    for (let r = 0; r < height; r++) {
+      for (let c = 0; c < width; c++) {
+        const posStr = `${+rowOffset + r},${+colOffset + c}`;
         if (matchIDs[posStr]) {
-          matchIDs[posStr].push(claimInfo[1]);
-
+          matchIDs[posStr].push(claimID);
           matchIDs[posStr].forEach((id) => {
             claimIDSet.delete(id);
           });
         } else {
-          matchIDs[posStr] = [claimInfo[1]];
+          matchIDs[posStr] = [claimID];
         }
       }
     }
