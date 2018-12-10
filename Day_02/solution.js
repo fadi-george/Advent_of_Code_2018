@@ -14,47 +14,29 @@ const part1 = () => {
     [...word].forEach((letter) => {
       counts[letter] = (counts[letter] || 0) + 1;
     });
+    counts = Object.values(counts);
 
-    let countedTwo = false;
-    let countedThree = false;
-    Object.keys(counts).some((key) => {
-      if (!countedTwo && counts[key] === 2) {
-        twoLetterCount++;
-        countedTwo = true;
-      }
-      if (!countedThree && counts[key] === 3) {
-        threeLetterCount++;
-        countedThree = true;
-      }
-      return countedTwo && countedThree;
-    });
+    twoLetterCount += counts.includes(2);
+    threeLetterCount += counts.includes(3);
   });
   return twoLetterCount * threeLetterCount;
 };
 
 // words given are in lowercase format and of equal lengths
 const part2 = () => {
+  let len = data[0].length;
   for (let i = 0; i < data.length; i++) {
     for (let j = 0; j < data.length; j++) {
       // checkign word differences
-      const startID = data[i];
-      const endID = data[j];
-      let diffOneCount = 0;
-
-      let diffIndex = -1;
-      for (let k = 0; k < startID.length; k++) {
-        let chDiff = Math.abs(startID.charCodeAt(k) - endID.charCodeAt(k));
-        if (chDiff !== 0) {
-          diffOneCount++;
-          diffIndex = k;
-          if (diffOneCount > 1) {
-            break;
-          }
+      let result = '';
+      for (let k = 0; k < len; k++) {
+        if (data[i][k] === data[j][k]) {
+          result += data[i][k];
         }
       }
 
-      if (diffOneCount === 1) {
-        return [...startID].filter((_, index) => index !== diffIndex).join('');
+      if (result.length === len - 1) {
+        return result;
       }
     }
   }

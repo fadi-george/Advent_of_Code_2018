@@ -4,9 +4,7 @@ import { fileToArray } from '../utils/readFile';
 const data = fileToArray(path.join(__dirname, './input.txt'));
 
 // solutions
-const part1 = () => {
-  return data.reduce((acc, curr) => acc + Number(curr), 0);
-};
+const part1 = () => data.reduce((acc, curr) => acc + Number(curr), 0);
 
 const part2 = () => {
   const repeatSet = new Set([0]);
@@ -14,17 +12,14 @@ const part2 = () => {
   let found = false;
 
   while (!found) {
-    found = data.some((value) => {
-      frequency += Number(value);
-      const isRepeat = repeatSet.has(frequency);
-      if (!isRepeat) {
-        repeatSet.add(frequency);
+    for (let i = 0; i < data.length; i++) {
+      frequency += Number(data[i]);
+      if (repeatSet.has(frequency)) {
+        return frequency;
       }
-      return isRepeat;
-    });
+      repeatSet.add(frequency);
+    }
   }
-
-  return frequency;
 };
 
 console.log('Part 1: ', part1());
